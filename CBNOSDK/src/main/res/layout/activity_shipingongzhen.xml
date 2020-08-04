@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#F5F5F5"
+    tools:context=".Activity.ShipingongzhenActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:text="正脸对框"
+            android:layout_marginRight="10dp"
+            android:textColor="#ff989ba3"
+            android:textSize="12sp"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray"
+            android:layout_marginRight="10dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:text="边录边读"
+            android:textColor="#ff989ba3"
+            android:layout_marginRight="10dp"
+
+            android:textSize="12sp"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray"
+            android:layout_marginRight="10dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:text="录制10-20秒 "
+            android:textColor="#ff989ba3"
+            android:textSize="12sp"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="164dp"
+        android:src="@drawable/phone"
+        android:layout_marginTop="40dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="195dp"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="180dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="30dp"
+            android:text="大声慢读一遍以下文字"
+            android:textColor="#ff333333"
+            android:textSize="18sp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EFF0F4"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:text="我同意赋予某某号贷款合同强制执行效力；我承诺一旦不按约定偿还债务，某某银行可要求公证处出具执行证书，法院可依据执行证书执行我本人的财产。"
+                android:textColor="#ff245fff"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_aa"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_shipingongzheng"
+            android:layout_width="301dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="91dp"
+            android:layout_marginBottom="100dp"
+            android:background="@drawable/buttonclick"
+            android:text="进入录制"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+
+</LinearLayout>

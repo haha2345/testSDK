@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tv_success">#1A1DC875</color>
+    <color name="tv_text_success">#FF1DC875</color>
+    <color name="tv_fail">#1AEE3535</color>
+    <color name="tv_text_fail">#FFEE3535</color>
+    <color name="tv_fail_detail">#FFFF6969</color>
+    <color name="light_gray">#FFEFF0F4</color>
+    <color name="shenhe_text">#1a4478ed</color>
+    <color name="shenhe_bg">#4478ED</color>
+    <color name="gray">#D6D8DE</color>
+    <color name="blue">#245FFF</color>
+    <color name="layout">#1a245fff</color>
+    <color name="white">#fff</color>
+</resources>

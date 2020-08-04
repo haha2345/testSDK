@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="30dp"
+    android:height="30dp"
+    android:viewportWidth="30"
+    android:viewportHeight="30">
+
+    <group
+            android:translateX="-105.000000"
+            android:translateY="-2412.000000">
+        <group
+                android:translateX="105.000000"
+                android:translateY="2412.000000">
+            <path
+                android:fillColor="#4478ED"
+                android:strokeWidth="1"
+                android:pathData="M 15 0 C 23.2842712475 0 30 6.71572875254 30 15 C 30 23.2842712475 23.2842712475 30 15 30 C 6.71572875254 30 0 23.2842712475 0 15 C 0 6.71572875254 6.71572875254 0 15 0 Z" />
+            <group
+                    android:translateX="8.400000"
+                    android:translateY="8.400000">
+                <path
+                    android:fillColor="#000000"
+                    android:fillAlpha="0"
+                    android:strokeAlpha="0"
+                    android:strokeWidth="1"
+                    android:pathData="M 0 0 H 14.4 V 14.4 H 0 V 0 Z" />
+                <path
+                    android:fillColor="#FFFFFF"
+                    android:strokeWidth="1"
+                    android:pathData="M2.64,2.35 C2.8902,2.35 3.30719999,2.1898 3.5778,1.9882 L4.41779999,1.3618
+C4.6854,1.162 5.169,1 5.502,1 L7.698,1 C8.0292,1 8.51220001,1.1602
+8.78220001,1.3618 L9.6222,1.9882 C9.8904,2.188 10.3758,2.35 10.56,2.35
+L11.88,2.35 C12.6072,2.35 13.2,2.9128 13.2,3.61 L13.2,10.54 C13.2,11.2384
+12.6072,11.8 11.88,11.8 L1.31999999,11.8 C0.587999996,11.8 0,11.2372 0,10.54
+L0,3.61 C0,2.9116 0.5904,2.35 1.31999999,2.35 L2.64,2.35 Z M6.6,9.4
+C7.67179678,9.4 8.66217785,8.82820325 9.19807625,7.9 C9.73397464,6.97179678
+9.73397464,5.82820322 9.19807625,4.9 C8.66217785,3.97179675 7.67179678,3.4
+6.6,3.4 C4.94314575,3.4 3.6,4.74314575 3.6,6.4 C3.6,8.05685425 4.94314575,9.4
+6.6,9.4 Z M6.6,8.2 C5.60588745,8.2 4.8,7.39411255 4.8,6.4 C4.8,5.40588745
+5.60588745,4.6 6.6,4.6 C7.59411255,4.6 8.4,5.40588745 8.4,6.4 C8.4,7.39411255
+7.59411255,8.2 6.6,8.2 Z" />
+            </group>
+        </group>
+    </group>
+</vector>
