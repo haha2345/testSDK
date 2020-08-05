@@ -16,8 +16,8 @@ import android.widget.TextView;
 import com.example.cbnosdk.R;
 import com.example.cbnosdk.utiles.SpUtils;
 import com.example.cbnosdk.base.BaseApply3Activity;
-import com.qmuiteam.qmui.widget.QMUITopBarLayout;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+//import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+//import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -30,7 +30,7 @@ import cn.org.bjca.signet.component.core.enums.SetSignImgType;
 
 public class Apply3Activity extends BaseApply3Activity {
 
-    private QMUITipDialog tipDialog;
+//    private QMUITipDialog tipDialog;
 
 
 
@@ -61,7 +61,7 @@ public class Apply3Activity extends BaseApply3Activity {
     //初始化按钮
     Button sbtn_apply3_next;
 
-    QMUITopBarLayout mTopBar;
+//    QMUITopBarLayout mTopBar;
 
 
     private Intent intent;
@@ -88,8 +88,8 @@ public class Apply3Activity extends BaseApply3Activity {
             getNativeUserList(mContext, name, idcard, phone);
             //第二步，添加证书
         } else {
-            getTipDialog(3, "请检查上一步是否有问题");
-            delayCloseTip();
+//            getTipDialog(3, "请检查上一步是否有问题");
+//            delayCloseTip();
             finish();
         }
 
@@ -120,7 +120,7 @@ public class Apply3Activity extends BaseApply3Activity {
         tv_apply3_re_record=findViewById(R.id.tv_apply3_re_record);
         tv_apply3_record_date=findViewById(R.id.tv_apply3_record_date);
         sbtn_apply3_next=findViewById(R.id.sbtn_apply3_next);
-        mTopBar=findViewById(R.id.topbar_apply3);
+        //mTopBar=findViewById(R.id.topbar_apply3);
 
 
 
@@ -147,19 +147,19 @@ public class Apply3Activity extends BaseApply3Activity {
 
     }
 
-    @SuppressLint("ResourceAsColor")
-    private void initTopBar() {
-        mTopBar.setBackgroundAlpha(255);
-        mTopBar.addLeftImageButton(R.drawable.back, R.id.topbar_right_change_button)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
-        //设置标题名
-        mTopBar.setTitle("赋强公证申请");
-    }
+//    @SuppressLint("ResourceAsColor")
+//    private void initTopBar() {
+//        mTopBar.setBackgroundAlpha(255);
+//        mTopBar.addLeftImageButton(R.drawable.back, R.id.topbar_right_change_button)
+//                .setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        finish();
+//                    }
+//                });
+//        //设置标题名
+//        mTopBar.setTitle("赋强公证申请");
+//    }
 
     //按钮判断
     @Override
@@ -317,35 +317,38 @@ public class Apply3Activity extends BaseApply3Activity {
         handWriting(mContext);
     }
 
-    public QMUITipDialog getTipDialog(int type, String str) {
-        tipDialog = new QMUITipDialog.Builder(mContext)
-                .setIconType(type)
-                .setTipWord(str)
-                .create();
-        return tipDialog;
-    }
-
-    //1.5s后关闭tipDIalog
-    public void delayCloseTip() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //要延时的程序
-                if (tipDialog.isShowing()) {
-                    tipDialog.dismiss();
-                }
-            }
-        }, 1500); //8000为毫秒单位
-//        Timer timer = new Timer();
-//        timer.schedule(new TimerTask() {
+//    public QMUITipDialog getTipDialog(int type, String str) {
+//        tipDialog = new QMUITipDialog.Builder(mContext)
+//                .setIconType(type)
+//                .setTipWord(str)
+//                .create();
+//        return tipDialog;
+//    }
+//
+//    //1.5s后关闭tipDIalog
+//    public void delayCloseTip() {
+//        new Handler().postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
 //                //要延时的程序
-//                if (tipDialog.isShowing()){
+//                if (tipDialog.isShowing()) {
 //                    tipDialog.dismiss();
 //                }
-//
 //            }
-//        },1500);
-    }
+//        }, 1500); //8000为毫秒单位
+//
+//
+//
+////        Timer timer = new Timer();
+////        timer.schedule(new TimerTask() {
+////            @Override
+////            public void run() {
+////                //要延时的程序
+////                if (tipDialog.isShowing()){
+////                    tipDialog.dismiss();
+////                }
+////
+////            }
+////        },1500);
+//    }
 }

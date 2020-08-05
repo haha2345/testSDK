@@ -10,18 +10,18 @@ import android.widget.VideoView;
 
 import com.example.cbnosdk.R;
 import com.example.cbnosdk.utiles.SpUtils;
-import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+//import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 public class VideoActivity extends AppCompatActivity {
 
-    QMUITopBarLayout mTopBar;
+//    QMUITopBarLayout mTopBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         VideoView videoView = (VideoView)findViewById(R.id.videoView);
-        mTopBar=findViewById(R.id.topbar_video);
+//        mTopBar=findViewById(R.id.topbar_video);
 
         //加载指定的视频文件
         String path = SpUtils.getInstance(this).getString("videopath",null);
@@ -35,20 +35,20 @@ public class VideoActivity extends AppCompatActivity {
 
         //让VideoView获取焦点
         videoView.requestFocus();
-        initTopBar();
+//        initTopBar();
 
     }
-    @SuppressLint("ResourceAsColor")
-    private void initTopBar() {
-        mTopBar.setBackgroundAlpha(255);
-        mTopBar.addLeftImageButton(R.drawable.back, R.id.topbar_right_change_button)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
-        //设置标题名
-        mTopBar.setTitle("查看视频");
-    }
+//    @SuppressLint("ResourceAsColor")
+//    private void initTopBar() {
+//        mTopBar.setBackgroundAlpha(255);
+//        mTopBar.addLeftImageButton(R.drawable.back, R.id.topbar_right_change_button)
+//                .setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        finish();
+//                    }
+//                });
+//        //设置标题名
+//        mTopBar.setTitle("查看视频");
+//    }
 }

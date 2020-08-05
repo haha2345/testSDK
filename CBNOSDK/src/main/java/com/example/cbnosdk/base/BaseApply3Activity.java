@@ -28,10 +28,10 @@ import com.example.cbnosdk.utiles.SpUtils;
 import com.kongzue.baseokhttp.HttpRequest;
 import com.kongzue.baseokhttp.listener.JsonResponseListener;
 import com.kongzue.baseokhttp.util.JsonMap;
-import com.qmuiteam.qmui.skin.QMUISkinManager;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+//import com.qmuiteam.qmui.skin.QMUISkinManager;
+//import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+//import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+//import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -72,7 +72,7 @@ public class BaseApply3Activity extends AppCompatActivity {
     private String token, caseId, userId;
     private File uploadFile;
     private String caseCode, date, bank;
-    public QMUITipDialog tipDialog;
+//    public QMUITipDialog tipDialog;
     //加载框
     private ProgressDialog progressDialog;
 
@@ -222,8 +222,8 @@ public class BaseApply3Activity extends AppCompatActivity {
                         } else if (main.getString("code").equals("401")){
                             breaker(con);
                         }else {
-                            getTipDialog(con,3,main.getString("msg")).show();
-                            delayCloseTip();
+//                            getTipDialog(con,3,main.getString("msg")).show();
+//                            delayCloseTip();
                             Log.d("获取用户状态", "失败");
 
                         }
@@ -243,8 +243,8 @@ public class BaseApply3Activity extends AppCompatActivity {
                     msspId=registerResult.getMsspID();
                     Log.d("msspID", registerResult.getMsspID());
                 }else {
-                    getTipDialog(con,3,registerResult.getErrCode()+registerResult.getErrMsg()).show();
-                    delayCloseTip();
+//                    getTipDialog(con,3,registerResult.getErrCode()+registerResult.getErrMsg()).show();
+//                    delayCloseTip();
                     newRegister(con,code);
                 }
 
@@ -262,8 +262,8 @@ public class BaseApply3Activity extends AppCompatActivity {
                     msspId=findBackUserResult.getMsspID();
                     Log.d("msspID", findBackUserResult.toString());
                 }else {
-                    getTipDialog(con,3,findBackUserResult.getErrCode()+findBackUserResult.getErrMsg()).show();
-                    delayCloseTip();
+//                    getTipDialog(con,3,findBackUserResult.getErrCode()+findBackUserResult.getErrMsg()).show();
+//                    delayCloseTip();
                     findRegister(con,name,idCard);
                 }
             }
@@ -302,8 +302,8 @@ public class BaseApply3Activity extends AppCompatActivity {
                             breaker(con);
                         }else {
                             dismissProgressDialog();
-                            getTipDialog(con,3,main.getString("msg")).show();
-                            delayCloseTip();
+//                            getTipDialog(con,3,main.getString("msg")).show();
+//                            delayCloseTip();
                             Log.d("添加用户接口调用", "失败");
                         }
                     }
@@ -350,10 +350,10 @@ public class BaseApply3Activity extends AppCompatActivity {
                         if (error != null) {
                             dismissProgressDialog();
                             Log.d("上传", "连接失败", error);
-                            getTipDialog(con,3,"连接失败").show();
+//                            getTipDialog(con,3,"连接失败").show();
 
 
-                            delayCloseTip();
+//                            delayCloseTip();
                         } else {
                             if (main.getString("code").equals("200")) {
                                 //上传成功
@@ -423,8 +423,8 @@ public class BaseApply3Activity extends AppCompatActivity {
                         public void onResponse(JsonMap main, Exception error) {
                             if (error != null) {
                                 dismissProgressDialog();
-                                getTipDialog(con,3,"连接失败").show();
-                                delayCloseTip();
+//                                getTipDialog(con,3,"连接失败").show();
+//                                delayCloseTip();
                                 Log.d("请求结果", "连接失败", error);
                             } else {
                                 if (main.getString("code").equals("200")) {
@@ -447,8 +447,8 @@ public class BaseApply3Activity extends AppCompatActivity {
                                     breaker(con);
                                 }else {
                                     dismissProgressDialog();
-                                    getTipDialog(con,3,main.getString("msg")).show();
-                                    delayCloseTip();
+//                                    getTipDialog(con,3,main.getString("msg")).show();
+//                                    delayCloseTip();
                                     Log.e("请求结果", main.getString("msg"));
                                     Log.e("请求结果", main.getString("code"));
 
@@ -480,8 +480,8 @@ public class BaseApply3Activity extends AppCompatActivity {
                     public void onResponse(JsonMap main, Exception error) {
                         if (error != null) {
                             Log.d("上传告知函", "连接失败", error);
-                            getTipDialog(con,3,"连接失败").show();
-                            delayCloseTip();
+//                            getTipDialog(con,3,"连接失败").show();
+//                            delayCloseTip();
                             dismissProgressDialog();
 
                         } else {
@@ -504,8 +504,8 @@ public class BaseApply3Activity extends AppCompatActivity {
                                 dismissProgressDialog();
                                 breaker(con);
                             }else {
-                                getTipDialog(con,3,main.getString("msg")).show();
-                                delayCloseTip();
+//                                getTipDialog(con,3,main.getString("msg")).show();
+//                                delayCloseTip();
                                 Log.e("上传告知函", main.getString("msg"));
                                 Log.e("上传告知函", main.getString("code"));
                                 dismissProgressDialog();
@@ -667,46 +667,46 @@ public class BaseApply3Activity extends AppCompatActivity {
                 .show();
     }
 
-    public QMUITipDialog getTipDialog(Context con, int type, String str) {
-        tipDialog = new QMUITipDialog.Builder(con)
-                .setIconType(type)
-                .setTipWord(str)
-                .create();
-        return tipDialog;
-    }
-    //1.5s后关闭tipDIalog
-    public void delayCloseTip(){
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                //要延时的程序
-                if (tipDialog.isShowing()){
-                    tipDialog.dismiss();
-                }
-
-            }
-        },1500);
-    }
-    private void showMessagePositiveDialog(final Context con) {
-        new QMUIDialog.MessageDialogBuilder(con)
-                .setMessage("签章成功，点击确定跳转到下一页")
-                .setSkinManager(QMUISkinManager.defaultInstance(con))
-                .addAction(0, "确定", QMUIDialogAction.ACTION_PROP_POSITIVE, new QMUIDialogAction.ActionListener() {
-                    @Override
-                    public void onClick(QMUIDialog dialog, int index) {
-                        dialog.dismiss();
-//成功跳转
-                        Intent intent = new Intent(con, Apply2Activity.class);
-                        intent.putExtra("filename", fileName);
-                        intent.putExtra("date", date);
-                        intent.putExtra("bank", bank);
-                        startActivity(intent);
-
-                    }
-                })
-                .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
-    }
+//    public QMUITipDialog getTipDialog(Context con, int type, String str) {
+//        tipDialog = new QMUITipDialog.Builder(con)
+//                .setIconType(type)
+//                .setTipWord(str)
+//                .create();
+//        return tipDialog;
+//    }
+//    //1.5s后关闭tipDIalog
+//    public void delayCloseTip(){
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                //要延时的程序
+//                if (tipDialog.isShowing()){
+//                    tipDialog.dismiss();
+//                }
+//
+//            }
+//        },1500);
+//    }
+//    private void showMessagePositiveDialog(final Context con) {
+//        new QMUIDialog.MessageDialogBuilder(con)
+//                .setMessage("签章成功，点击确定跳转到下一页")
+//                .setSkinManager(QMUISkinManager.defaultInstance(con))
+//                .addAction(0, "确定", QMUIDialogAction.ACTION_PROP_POSITIVE, new QMUIDialogAction.ActionListener() {
+//                    @Override
+//                    public void onClick(QMUIDialog dialog, int index) {
+//                        dialog.dismiss();
+////成功跳转
+//                        Intent intent = new Intent(con, Apply2Activity.class);
+//                        intent.putExtra("filename", fileName);
+//                        intent.putExtra("date", date);
+//                        intent.putExtra("bank", bank);
+//                        startActivity(intent);
+//
+//                    }
+//                })
+//                .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
+//    }
     private void deletePdf(File file){
         if (file.exists()){
             file.delete();

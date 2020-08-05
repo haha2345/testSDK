@@ -12,7 +12,20 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    sourceSets{
 
+        main{
+
+            jniLibs.srcDirs=['libs']
+
+        }
+
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -28,5 +41,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation(name: 'CBNOSDK-release', ext: 'aar')
+
 
 }

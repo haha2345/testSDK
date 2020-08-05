@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".Activity.VideoActivity">
 
-    <com.qmuiteam.qmui.widget.QMUITopBarLayout
-        android:id="@+id/topbar_video"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        tools:ignore="MissingConstraints" />
+<!--    <com.qmuiteam.qmui.widget.QMUITopBarLayout-->
+<!--        android:id="@+id/topbar_video"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        tools:ignore="MissingConstraints" />-->
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="match_parent"

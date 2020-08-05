@@ -14,11 +14,11 @@
         android:orientation="vertical"
         tools:context=".Activity.Apply3Activity">
 
-        <com.qmuiteam.qmui.widget.QMUITopBarLayout
-            android:id="@+id/topbar_apply3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true" />
+<!--        <com.qmuiteam.qmui.widget.QMUITopBarLayout-->
+<!--            android:id="@+id/topbar_apply3"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fitsSystemWindows="true" />-->
 
 
         <View

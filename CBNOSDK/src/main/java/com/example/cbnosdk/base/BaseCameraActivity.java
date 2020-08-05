@@ -29,7 +29,7 @@ import com.daasuu.camerarecorder.LensFacing;
 import com.example.cbnosdk.R;
 import com.example.cbnosdk.utiles.SpUtils;
 import com.example.cbnosdk.utiles.Timeutils;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+//import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -80,7 +80,7 @@ public class BaseCameraActivity extends AppCompatActivity {
     private boolean toggleClick = false;
     //检测是否录像
     public boolean flag=true;
-    public QMUITipDialog tipDialog;
+//    public QMUITipDialog tipDialog;
 
     public String imagePath,src;
 
@@ -470,24 +470,24 @@ public class BaseCameraActivity extends AppCompatActivity {
         return false;//已经取消过了，不需要取消
     }
 
-    public QMUITipDialog getTipDialog(Context con, int type, String str) {
-        tipDialog = new QMUITipDialog.Builder(con)
-                .setIconType(type)
-                .setTipWord(str)
-                .create();
-        return tipDialog;
-    }
-    //1.5s后关闭tipDIalog
-    public void delayCloseTip(){
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                //要延时的程序
-                tipDialog.dismiss();
-            }
-        },1500);
-    }
+//    public QMUITipDialog getTipDialog(Context con, int type, String str) {
+//        tipDialog = new QMUITipDialog.Builder(con)
+//                .setIconType(type)
+//                .setTipWord(str)
+//                .create();
+//        return tipDialog;
+//    }
+//    //1.5s后关闭tipDIalog
+//    public void delayCloseTip(){
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                //要延时的程序
+//                tipDialog.dismiss();
+//            }
+//        },1500);
+//    }
     public static boolean IsFileInUse(String fileName) {
         File file = new File(fileName);
         if (file.renameTo(file)) {
