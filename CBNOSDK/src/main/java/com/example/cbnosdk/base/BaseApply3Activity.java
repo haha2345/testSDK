@@ -11,7 +11,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
+import android.icu.util.BuddhistCalendar;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -55,9 +57,9 @@ import cn.org.bjca.signet.component.core.callback.RegisterCallBack;
 import cn.org.bjca.signet.component.core.callback.SignDataCallBack;
 import cn.org.bjca.signet.component.core.enums.IdCardType;
 import cn.org.bjca.signet.component.core.enums.RegisterType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+//import okhttp3.OkHttpClient;
+//import okhttp3.Request;
+//import okhttp3.Response;
 
 import static com.example.cbnosdk.utiles.DataCleanManager.clear;
 
@@ -68,10 +70,11 @@ public class BaseApply3Activity extends AppCompatActivity {
     private PdfDocument doc;
     private PdfDocument.PageInfo pageInfo;
     private PdfDocument.Page page;
-    public String msspId, activeCode, signId, fileName, fileSize, filePath, fileHashSha1, statusInfo;
-    private String token, caseId, userId;
+    protected String msspId, activeCode, signId, fileName, fileSize, filePath, fileHashSha1, statusInfo;
+    protected String caseId, userId;
     private File uploadFile;
-    private String caseCode, date, bank;
+    protected Bundle getBundle;
+    protected String caseCode, date, bank,token;
 //    public QMUITipDialog tipDialog;
     //加载框
     private ProgressDialog progressDialog;
@@ -108,7 +111,7 @@ public class BaseApply3Activity extends AppCompatActivity {
         File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         try {
             String pdfPath=file.getAbsolutePath() + "/" + new SimpleDateFormat("yyyyMM_dd-HHmmss").format(new Date()) + "ad.pdf";
-            SpUtils.getInstance(getParent()).setString("pdfpath",pdfPath);
+            //SpUtils.getInstance(getParent()).setString("pdfpath",pdfPath);
             uploadFile = new File(pdfPath);
             doc.writeTo(new FileOutputStream(uploadFile));
             //应该弹一个对话框
@@ -194,7 +197,9 @@ public class BaseApply3Activity extends AppCompatActivity {
 
     //api获取用户状态
     public void getUserState(final Context con, final String name, final String idcard, final String phone) {
-        token = SpUtils.getInstance(this).getString("token", null);
+//        token = SpUtils.getInstance(this).getString("token", null);
+        //token=getIntent().getStringExtra("token");
+        token=getBundle.getString("token");
         String jsonStr = "{\n" +
                 "    \"idCardType\":\"SF\",\n" +
                 "    \"idCard\":\"" + idcard + "\"}";
@@ -272,7 +277,8 @@ public class BaseApply3Activity extends AppCompatActivity {
 
     //调用ca添加用户接口 api 并且调用注册
     private void getNewRegiterInfo(final Context con, String name, String idcard, String phone) {
-
+        //token=getIntent().getStringExtra("token");
+        token=getBundle.getString("token");
         String jsonStr = "{\n" +
                 "    \"name\":\"" + name + "\",\n" +
                 "    \"idType\":\"SF\",\n" +
@@ -337,7 +343,9 @@ public class BaseApply3Activity extends AppCompatActivity {
     //上传完删除文件
     //上传pdf 异步执行会与下一步冲突，所以把签署pdf的方法放在此函数中
     public void uploadPdf(final Context con) {
-        token = SpUtils.getInstance(this).getString("token", null);
+        //token=getIntent().getStringExtra("token");
+        //token = SpUtils.getInstance(this).getString("token", null);
+        token=getBundle.getString("token");
         HttpRequest.build(con, netConstant.getCloudSealUploadDocWithKeyIDURL())
                 .setMediaType(baseokhttp3.MediaType.parse("application/pdf"))
                 .addHeaders("Authorization", "Bearer " + token)
@@ -408,12 +416,13 @@ public class BaseApply3Activity extends AppCompatActivity {
 
     //获取数字签名结果
     public void getSeal(final Context con) {
-
+        //token=getIntent().getStringExtra("token");
+        token=getBundle.getString("token");
         String json = "{\n" +
                 "    \"signId\":\"" + signId + "\"\n" +
                 "}";
         if (signId != null) {
-            token = SpUtils.getInstance(this).getString("token", null);
+            //token = SpUtils.getInstance(this).getString("token", null);
             HttpRequest.build(con, netConstant.getCloudSealCommitSignURL())
                     .addHeaders("Authorization", "Bearer " + token)
                     .addHeaders("Content-Type", "application/json")
@@ -462,9 +471,11 @@ public class BaseApply3Activity extends AppCompatActivity {
 
     //上传告知函
     private void uploadNotifyLetter(final Context con) {
-        token = SpUtils.getInstance(this).getString("token", null);
-        caseId = SpUtils.getInstance(this).getString("caseId", null);
-        File video=new File(SpUtils.getInstance(this).getString("videopath", null));
+        token=getBundle.getString("token");
+        //token=getIntent().getStringExtra("token");
+        //token = SpUtils.getInstance(this).getString("token", null);
+        //caseId = SpUtils.getInstance(this).getString("caseId", null);
+        //File video=new File(SpUtils.getInstance(this).getString("videopath", null));
         String jsonStr = "{\n" +
                 "    \"fileHashSha1\":\"" + fileHashSha1 + "\",\n" +
                 "    \"fileSize\":\"" + fileSize + "\",\n" +
@@ -490,14 +501,15 @@ public class BaseApply3Activity extends AppCompatActivity {
                                 //上传成功
                                 JsonMap jsonMap = main.getJsonMap("data");
                                 //取参传到下一页
-                                caseCode = jsonMap.getString("caseCode");
+                                /*caseCode = jsonMap.getString("caseCode");
                                 date = jsonMap.getString("applyTime");
                                 bank = jsonMap.getString("coName");
                                 Intent intent = new Intent(con, Apply2Activity.class);
                                 intent.putExtra("filename", fileName);
                                 intent.putExtra("date", date);
                                 intent.putExtra("bank", bank);
-                                startActivity(intent);
+                                startActivity(intent);*/
+                                Toast.makeText(con,"全部流程执行成功",Toast.LENGTH_SHORT).show();
                                 finish();
                                 Log.d("上传告知函", jsonMap.toString());
                             } else if (main.getString("code").equals("401")){
@@ -605,30 +617,30 @@ public class BaseApply3Activity extends AppCompatActivity {
 //                });
 //    }
 
-    public void testDownload() {
-        token = SpUtils.getInstance(this).getString("token", null);
-        caseId = SpUtils.getInstance(this).getString("caseId", null);
-        userId = SpUtils.getInstance(this).getString("userId", null);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                OkHttpClient okHttpClient = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .addHeader("Authorization", "Bearer " + token)
-                        .url(netConstant.getDownloadCaseFile() + "?userId=21&caseId=196&fileType=300010")
-                        .build();
-                try {
-                    Response response = okHttpClient.newCall(request).execute();
-                    byte[] bytes = response.body().bytes();
-                    saveBytesToFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/" + "111.pdf", bytes);
-                    dismissProgressDialog();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-    }
+//    public void testDownload() {
+//        token = SpUtils.getInstance(this).getString("token", null);
+//        caseId = SpUtils.getInstance(this).getString("caseId", null);
+//        userId = SpUtils.getInstance(this).getString("userId", null);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                OkHttpClient okHttpClient = new OkHttpClient();
+//                Request request = new Request.Builder()
+//                        .addHeader("Authorization", "Bearer " + token)
+//                        .url(netConstant.getDownloadCaseFile() + "?userId=21&caseId=196&fileType=300010")
+//                        .build();
+//                try {
+//                    Response response = okHttpClient.newCall(request).execute();
+//                    byte[] bytes = response.body().bytes();
+//                    saveBytesToFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/" + "111.pdf", bytes);
+//                    dismissProgressDialog();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//
+//    }
 
     //存文件
     public static void saveBytesToFile(String filePath, byte[] data) {

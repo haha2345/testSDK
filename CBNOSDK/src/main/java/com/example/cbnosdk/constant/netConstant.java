@@ -26,6 +26,19 @@ public class netConstant {
     private static String uploadNotarizeVideo=URL+"/fqgz/userFile/uploadNotarizeVideo";
     private static String getCaseFilePathURL=URL+"/fqgz/userFile/getCaseFilePath";
     private static String downloadCaseFile=URL+"/fqgz/userFile/downloadCaseFile";
+    private static String authLogin=URL+"/mobile/authLogin";
+    private static String addContract=URL+"/fqgz/userFile/addContract";
+
+    public static String getAddContract() {
+        return addContract;
+    }
+
+
+
+    public static String getAuthLogin() {
+        return authLogin;
+    }
+
 
 
     public static String getUploadNotarizeVideo() {

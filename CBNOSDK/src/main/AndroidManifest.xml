@@ -2,16 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cbnosdk">
 
-
-
     <application>
-
-        <activity android:name=".Activity.VideoActivity"/>
+        <activity android:name=".Activity.MyRecordActivity" />
+        <activity android:name=".Activity.VideoActivity" />
         <activity android:name=".Activity.ShipingongzhenActivity" />
         <activity android:name=".Activity.Apply3Activity" />
         <activity android:name=".Activity.Apply2Activity" />
-        <activity android:name=".Activity.CameraActivity" />
-
     </application>
 
 </manifest>

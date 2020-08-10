@@ -23,7 +23,7 @@ import static com.example.cbnosdk.utiles.DataCleanManager.clear;
 
 public class BaseActivity extends AppCompatActivity {
     //加载框
-    private ProgressDialog progressDialog;
+    private static ProgressDialog progressDialog;
 //    public QMUITipDialog tipDialog;
 
     //获取map中的key
@@ -39,7 +39,7 @@ public class BaseActivity extends AppCompatActivity {
         //这个key肯定是最后一个满足该条件的key.
     }
     //显示加载框
-    public void showProgressDialog(Context mContext, String text) {
+    protected static void showProgressDialog(Context mContext, String text) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(mContext);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -60,7 +60,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     //取消加载框
-    public Boolean dismissProgressDialog() {
+    protected static Boolean dismissProgressDialog() {
         if (progressDialog != null) {
             if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
@@ -97,7 +97,7 @@ public class BaseActivity extends AppCompatActivity {
 //    }
 
 
-    public void showToast(final Context con, final String msg){
+    private void showToast(final Context con, final String msg){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -105,7 +105,7 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
     }
-    public void deleteFile(File file){
+    private void deleteFile(File file){
         if (file.exists()){
             file.delete();
         }else{
@@ -113,7 +113,8 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void breaker(Context mContext){
+    protected static void breaker(Context mContext){
+        Toast.makeText(mContext,"token已失效",Toast.LENGTH_SHORT).show();
         clear(mContext);
         Intent intent=new Intent(mContext, Apply2Activity.class);
         //调到页面，关闭之前所有页面

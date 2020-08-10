@@ -19,35 +19,42 @@ import com.example.cbnosdk.R;
 
 public class ShipingongzhenActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 88888;
-    Button btn;
-    String src,name,phone,idcard;
-    ImageView iv;
+    private Button btn;
+//    private String src,name,phone,idcard,token;
+    private ImageView iv;
+    private Bundle bundle;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shipingongzhen);
-        src=getIntent().getStringExtra("basestr");
-        name=getIntent().getStringExtra("name");
-        idcard=getIntent().getStringExtra("idcard");
-        phone=getIntent().getStringExtra("phone");
+        bundle=getIntent().getExtras();
+//        src=bundle.getString("basestr");
+//        name=bundle.getString("name");
+//        idcard=bundle.getString("idcard");
+//        phone=bundle.getString("phone");
+//        token=bundle.getString("token");
+
         btn=findViewById(R.id.btn_shipingongzheng);
         iv=findViewById(R.id.iv_aa);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ShipingongzhenActivity.this,CameraActivity.class);
-                intent.putExtra("basesrc",src);
-                intent.putExtra("name",name);
-                intent.putExtra("idcard",idcard);
-                intent.putExtra("phone",phone);
+                Intent intent=new Intent(ShipingongzhenActivity.this, MyRecordActivity.class);
+//                Bundle bundle1=new Bundle();
+//                bundle1.putString("token",token);
+//                bundle1.putString("basesrc",src);
+//                bundle1.putString("name",name);
+//                bundle1.putString("idcard",idcard);
+//                bundle1.putString("phone",phone);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
     }
-    public static Bitmap base64ToBitmap(String base64Data) {
-        byte[] bytes = Base64.decode(base64Data, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-    }
+
     @Override
     protected void onResume() {
         super.onResume();

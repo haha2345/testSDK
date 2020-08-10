@@ -42,7 +42,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation(name: 'CBNOSDK-release', ext: 'aar')
+    implementation(name: 'CBNOSDK-debug', ext: 'aar')
 
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.11.0'
+//BaseOkHttp V3 网络请求库
+//    implementation 'com.kongzue.baseokhttp_v3:baseokhttp_v3:3.1.7.3'
+////BaseJson 解析库
+//    implementation 'com.kongzue.basejson:basejson:1.0.4'
 
 }

@@ -1,3 +1,4 @@
+include ':CBNOCamera'
 include ':CBNOSDK'
 include ':app'
 rootProject.name = "testSDK"

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cbnosdk.R;
 import com.example.cbnosdk.utiles.SpUtils;
@@ -71,16 +72,31 @@ public class Apply3Activity extends BaseApply3Activity {
             imagePath = null,
             phone = null,
             idcard = null;
+
+    private String token;
+
+/*    private String name = "王文哲",
+            bank = "建设银行",
+            videoPath = null,
+            imagePath = null,
+            phone = "13205401086",
+            idcard = "370284199803310014";*/
+
     private Context mContext = Apply3Activity.this;
     private Bitmap handWritingBitmap = null;
     private String src = null;
+    Bundle putBundle=new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply3);
         //initTopBar();
-        initView();
+
+        getBundle = getIntent().getExtras();
+
+
+//        initView();
         initBtn();
         //第一步，检测是否有证
         if (idcard != null) {
@@ -88,12 +104,11 @@ public class Apply3Activity extends BaseApply3Activity {
             getNativeUserList(mContext, name, idcard, phone);
             //第二步，添加证书
         } else {
-//            getTipDialog(3, "请检查上一步是否有问题");
-//            delayCloseTip();
+            Toast.makeText(mContext,"请检查上一步输入是否有误",Toast.LENGTH_SHORT).show();
             finish();
         }
 
-//        initView();
+        initView();
 
         //从别的页面跳转回来不会调用onCreate，只会调用onRestart、onStart、onResume
     }
@@ -123,20 +138,36 @@ public class Apply3Activity extends BaseApply3Activity {
         //mTopBar=findViewById(R.id.topbar_apply3);
 
 
+        if (getBundle.containsKey("name")){
+            name=getBundle.getString("name");
+            bank=getBundle.getString("bank");
+            token=getBundle.getString("token");
+            idcard=getBundle.getString("idcard");
+            phone=getBundle.getString("phone");
+            caseId=getBundle.getString("caseid");
+        }
 
-        name = getIntent().getStringExtra("name");
-        bank = SpUtils.getInstance(this).getString("bank", null);
-        idcard = getIntent().getStringExtra("idcard");
-        phone = getIntent().getStringExtra("phone");
+
+            //取录像信息
+        if (getBundle.containsKey("imagepath")){
+            src = getBundle.getString("base64str");
+            imagePath = getBundle.getString("imagepath");
+            videoPath = getBundle.getString("videopath");
+        }
+
+
+
+
+//        name = getIntent().getStringExtra("name");
+//        bank = SpUtils.getInstance(this).getString("bank", null);
+//        idcard = getIntent().getStringExtra("idcard");
+//        phone = getIntent().getStringExtra("phone");
 
         tv_apply3_name.setText(name);
         tv_apply3_name1.setText(name);
         tv_apply3_name2.setText(name);
         tv_apply3_bank.setText(bank);
-        //取录像信息
-        src = getIntent().getStringExtra("base64str");
-        imagePath = getIntent().getStringExtra("imagepath");
-        videoPath = getIntent().getStringExtra("videopath");
+
         if (imagePath != null) {
             getRecord();
         }
@@ -209,12 +240,7 @@ public class Apply3Activity extends BaseApply3Activity {
         lv_apply3_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(mContext, ShipingongzhenActivity.class);
-                intent.putExtra("basestr", src);
-                intent.putExtra("name", name);
-                intent.putExtra("phone", phone);
-                intent.putExtra("idcard", idcard);
-                startActivity(intent);
+                jumpToRecord();
             }
         });
 
@@ -228,12 +254,10 @@ public class Apply3Activity extends BaseApply3Activity {
         tv_apply3_re_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                videoPath=SpUtils.getInstance(mContext).getString("videopath",null);
-                imagePath=SpUtils.getInstance(mContext).getString("imagepath",null);
-                File video=new File(videoPath);
-                File image=new File(imagePath);
-                deleteFile(video);
-                deleteFile(image);
+                imagePath = getBundle.getString("imagepath");
+                videoPath = getBundle.getString("videopath");
+                deleteFile(new File(videoPath));
+                deleteFile(new File(imagePath));
                 reRecord();
             }
         });
@@ -267,11 +291,18 @@ public class Apply3Activity extends BaseApply3Activity {
         iv_apply3_yes1.setVisibility(View.INVISIBLE);
         rv_apply3_record.setVisibility(View.INVISIBLE);
         lv_apply3_record.setVisibility(View.VISIBLE);
+        jumpToRecord();
+    }
+
+    private void jumpToRecord(){
         intent = new Intent(mContext, ShipingongzhenActivity.class);
-        intent.putExtra("basestr", src);
-        intent.putExtra("name", name);
-        intent.putExtra("phone", phone);
-        intent.putExtra("idcard", idcard);
+        putBundle.putString("base64str",src);
+        putBundle.putString("name",name);
+        putBundle.putString("phone",phone);
+        putBundle.putString("idcard",idcard);
+        putBundle.putString("token",token);
+        putBundle.putString("caseid",caseId);
+        intent.putExtras(putBundle);
         startActivity(intent);
     }
 

@@ -102,7 +102,7 @@ public class Apply2Activity extends BaseActivity {
     private void initData() {
         caseId = SpUtils.getInstance(this).getString("caseId", null);
         token = SpUtils.getInstance(this).getString("token", null);
-        token="eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleToiOiJiZmY4YzY0Zi1jMmRmLTRiNGItYmEzOC1kMjc4ZDlmNzdlMzAifQ.cksDeHSj0nbiPUIt4hR0ZmoGI3HjXe7RktJth1o40Ca9gcEZOwyPhCo0HdOj6ePFvHzSpak47oWniJjrQ_hQ8Q";
+        token="eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleToiOiJjYTJkZDU0OC0zNWNjLTQ1ZGQtYjU3Ny1lMmQxZTRjZjA1YTAifQ.UH_J4nfNl6aTG1FWA6C_p_CjsIbsyJV0CglDtYDfqGuYPd3e1sjn4AKeC3u_axY7V6zwa8s_D_JeAZcNJuJ8ww";
     }
 
     private void initBtns() {
@@ -238,7 +238,7 @@ public class Apply2Activity extends BaseActivity {
     }
 
     //初始化 获取authinfo
-    private String test2nd() {
+    public String test2nd() {
         ctidReturnParams = BJCAIdentifyAPI.initialCtidIdentify(mContext, CtidModelEnum.MODEL_0X12, CtidActionType.AUTH_ACTION);
         authinfo = ctidReturnParams.getValue();
         Log.d("status", ctidReturnParams.getStatus());
@@ -248,7 +248,7 @@ public class Apply2Activity extends BaseActivity {
     }
 
     //提交authorinfo
-    private void postAuthinfo(final String authinfo) {
+    public void postAuthinfo(final String authinfo) {
         HttpRequest.build(mContext, netConstant.getApplyURL())
                 .addHeaders("Authorization", "Bearer " + token)
                 .addHeaders("Content-Type", "application/json")
@@ -275,7 +275,8 @@ public class Apply2Activity extends BaseActivity {
                                                     Log.d("msg", ctidReturnParams.getMessage());
                                                     Log.d("value", val);
                                                     showProgressDialog(mContext, "请稍后");
-                                                    //要延时的程序
+
+
                                                     model0x12(val);
 
 
@@ -378,8 +379,13 @@ public class Apply2Activity extends BaseActivity {
 //                "    \"personMobile\":\""+username+"\"\n" +
 //                "}";
         //test
+//        String jsonStr = "{\n" +
+//                "    \"caseId\":\"" + caseId + "\",\n" +
+//                "    \"authInfo\":\"" + value + "\",\n" +
+//                "    \"personMobile\":\"" + username + "\"\n" +
+//                "}";
         String jsonStr = "{\n" +
-                "    \"caseId\":\"" + caseId + "\",\n" +
+                "    \"caseId\":\"" + "224" + "\",\n" +
                 "    \"authInfo\":\"" + value + "\",\n" +
                 "    \"personMobile\":\"" + username + "\"\n" +
                 "}";
