@@ -5,22 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.cbnosdk.R;
 
 public class ShipingongzhenActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 88888;
     private Button btn;
-//    private String src,name,phone,idcard,token;
+//    private String src,name,cbno_phone,idcard,token;
     private ImageView iv;
     private Bundle bundle;
 
@@ -33,7 +29,7 @@ public class ShipingongzhenActivity extends AppCompatActivity {
 //        src=bundle.getString("basestr");
 //        name=bundle.getString("name");
 //        idcard=bundle.getString("idcard");
-//        phone=bundle.getString("phone");
+//        cbno_phone=bundle.getString("cbno_phone");
 //        token=bundle.getString("token");
 
         btn=findViewById(R.id.btn_shipingongzheng);
@@ -42,13 +38,13 @@ public class ShipingongzhenActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ShipingongzhenActivity.this, MyRecordActivity.class);
+                Intent intent=new Intent(ShipingongzhenActivity.this, CBNOMyRecordActivity.class);
 //                Bundle bundle1=new Bundle();
 //                bundle1.putString("token",token);
 //                bundle1.putString("basesrc",src);
 //                bundle1.putString("name",name);
 //                bundle1.putString("idcard",idcard);
-//                bundle1.putString("phone",phone);
+//                bundle1.putString("cbno_phone",cbno_phone);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -87,9 +83,9 @@ public class ShipingongzhenActivity extends AppCompatActivity {
         switch (requestCode) {
             case CAMERA_PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(ShipingongzhenActivity.this, "camera permission has been grunted.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ShipingongzhenActivity.this, "camera permission has been grunted.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ShipingongzhenActivity.this, "[WARN] camera permission is not grunted.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ShipingongzhenActivity.this, "[WARN] camera permission is not grunted.", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

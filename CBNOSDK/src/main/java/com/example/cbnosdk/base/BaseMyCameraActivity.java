@@ -26,7 +26,6 @@ import com.daasuu.camerarecorder.CameraRecorder;
 import com.daasuu.camerarecorder.CameraRecorderBuilder;
 import com.daasuu.camerarecorder.LensFacing;
 import com.example.cbnosdk.R;
-import com.example.cbnosdk.utiles.SpUtils;
 import com.example.cbnosdk.utiles.Timeutils;
 
 
@@ -53,9 +52,9 @@ public class BaseMyCameraActivity extends AppCompatActivity {
 
             //暂停计时
             timer.stopTimer();
-            recordBtn.setImageResource(R.drawable.record);
+            recordBtn.setImageResource(R.drawable.cbno_record);
             recordBtn.setEnabled(false);
-            cancelBtn.setImageResource(R.drawable.chongxinrecord);
+            cancelBtn.setImageResource(R.drawable.cbno_chongxinrecord);
             cancelBtn.setVisibility(View.VISIBLE);
             uploadBtn.setVisibility(View.VISIBLE);
             flag=true;
@@ -98,9 +97,9 @@ public class BaseMyCameraActivity extends AppCompatActivity {
 //                cameraRecorder.stop();
 //                //暂停计时
 //                timer.stopTimer();
-//                recordBtn.setImageResource(R.drawable.record);
+//                recordBtn.setImageResource(R.drawable.cbno_record);
 //                recordBtn.setEnabled(false);
-//                cancelBtn.setImageResource(R.drawable.chongxinrecord);
+//                cancelBtn.setImageResource(R.drawable.cbno_chongxinrecord);
 //                cancelBtn.setVisibility(View.VISIBLE);
 //                uploadBtn.setVisibility(View.VISIBLE);
 //                flag=true;
@@ -135,7 +134,7 @@ public class BaseMyCameraActivity extends AppCompatActivity {
 
                     //SpUtils.getInstance(getParent()).setString("videopath",filepath);
                     cameraRecorder.start(filepath);
-                    recordBtn.setImageResource(R.drawable.luwan);
+                    recordBtn.setImageResource(R.drawable.cbno_luwan);
                     //关闭取消按钮
                     cancelBtn.setVisibility(View.INVISIBLE);
                     //在录像开始时获取图片
@@ -178,9 +177,9 @@ public class BaseMyCameraActivity extends AppCompatActivity {
 //                            runOnUiThread(new Runnable() {
 //                                @Override
 //                                public void run() {
-//                                    recordBtn.setImageResource(R.drawable.record);
+//                                    recordBtn.setImageResource(R.drawable.cbno_record);
 //                                    recordBtn.setEnabled(false);
-//                                    cancelBtn.setImageResource(R.drawable.chongxinrecord);
+//                                    cancelBtn.setImageResource(R.drawable.cbno_chongxinrecord);
 //                                    cancelBtn.setVisibility(View.VISIBLE);
 //                                    uploadBtn.setVisibility(View.VISIBLE);
 //                                    flag=true;
@@ -199,9 +198,9 @@ public class BaseMyCameraActivity extends AppCompatActivity {
                     cameraRecorder.stop();
                     //暂停计时
                     timer.stopTimer();
-                    recordBtn.setImageResource(R.drawable.record);
+                    recordBtn.setImageResource(R.drawable.cbno_record);
                     recordBtn.setEnabled(false);
-                    cancelBtn.setImageResource(R.drawable.chongxinrecord);
+                    cancelBtn.setImageResource(R.drawable.cbno_chongxinrecord);
                     cancelBtn.setVisibility(View.VISIBLE);
                     uploadBtn.setVisibility(View.VISIBLE);
                     flag=true;
@@ -218,7 +217,7 @@ public class BaseMyCameraActivity extends AppCompatActivity {
                 }else {
                     tv_camera_timer.setText("00:00");
                     uploadBtn.setVisibility(View.INVISIBLE);
-                    cancelBtn.setImageResource(R.drawable.error);
+                    cancelBtn.setImageResource(R.drawable.cbno_error);
                     recordBtn.setEnabled(true);
                 }
             }

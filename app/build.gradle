@@ -38,11 +38,14 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation files('libs\\ocrcomponentV1.0.2.aar')
+    implementation files('libs\\CBNOSDK-release.aar')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation(name: 'CBNOSDK-debug', ext: 'aar')
+    //提示引用gson库
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.11.0'
 //BaseOkHttp V3 网络请求库

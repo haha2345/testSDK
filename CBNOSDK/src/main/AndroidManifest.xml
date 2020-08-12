@@ -2,12 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cbnosdk">
 
-    <application>
-        <activity android:name=".Activity.MyRecordActivity" />
-        <activity android:name=".Activity.VideoActivity" />
+    <application
+        android:requestLegacyExternalStorage="true"
+        >
+
+        <activity android:name=".Activity.CBNOMyRecordActivity" />
+        <activity android:name=".Activity.CBNOVideoActivity" />
         <activity android:name=".Activity.ShipingongzhenActivity" />
         <activity android:name=".Activity.Apply3Activity" />
-        <activity android:name=".Activity.Apply2Activity" />
+        <activity
+            android:name="cn.org.bjca.signet.component.core.activity.SignetCoreApiActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.org.bjca.livecheckplugin.ui.LiveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.org.bjca.signet.component.ocr.activity.CaptureIdCardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.org.bjca.signet.component.qr.activity.QRScanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.org.bjca.signet.component.seal.activity.SignetSealApiActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="cn.org.bjca.signet.component.seal.activity.CaptureSignActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

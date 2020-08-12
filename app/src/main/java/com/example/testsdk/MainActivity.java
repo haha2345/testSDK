@@ -13,10 +13,10 @@ import android.widget.Toast;
 
 import com.example.cbnosdk.Activity.Apply3Activity;
 import com.example.cbnosdk.CBNOApi;
+import com.example.cbnosdk.CBNOEntity;
 
 
 public class MainActivity extends AppCompatActivity {
-    private static final int CAMERA_PERMISSION_REQUEST_CODE = 88888;
 
 
     private String name;
@@ -24,32 +24,41 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkPermission();
+//        checkPermission();
         Button btn=findViewById(R.id.btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, Apply3Activity.class);
+  /*              Intent intent=new Intent(MainActivity.this, Apply3Activity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("name", "王文哲");
                 bundle.putString("idcard", "370284199803310014");
                 bundle.putString("token", "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleToiOiIxNjFlYTk5MS1mNmE0LTQ5MjYtYTI0NS01ZThmZWY0ZjE4YTgifQ.kzSmF58J2-TKvqG5GAhQ51XGFPNCJFnwkek4w4zqqg8tzxaKKnGPxyO5AQq5CmbdBwQI0saT5mu-scj0GyS1qg");
-                bundle.putString("phone", "13205401086");
+                bundle.putString("cbno_phone", "13205401086");
                 bundle.putString("bank", "bank");
                 bundle.putString("caseid", "400");
                 intent.putExtras(bundle);
-                startActivity(intent);
-//                CBNOApi.beginApiService(MainActivity.this);
+                startActivity(intent);*/
+                CBNOApi.beginApiService(MainActivity.this,new CBNOEntity("13205401086"
+                ,"2"
+                ,"ffsaf"
+                ,"asgsaf"
+                ,"wwwd"
+                ,"123456789123456789"
+                ,"222222"
+                ,"0.4"
+                ,"5"
+                ));
 //                cbnoApi.start(MainActivity.this);
 //                new CBNOApi().start(MainActivity.this);
 
-//                CBNOApi.beginApiService(MainActivity.this);
+//                CBNOApi.beginApiService(MainActivity.this,null);
 
             }
         });
     }
 
-    //获取摄像头权限
+    /*//获取摄像头权限
     private boolean checkPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
@@ -73,11 +82,11 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case CAMERA_PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this, "camera permission has been grunted.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "camera permission has been grunted.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "[WARN] camera permission is not grunted.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "[WARN] camera permission is not grunted.", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
-    }
+    }*/
 }

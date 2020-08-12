@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
-import android.icu.util.BuddhistCalendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,13 +19,13 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.cbnosdk.Activity.Apply2Activity;
+import com.example.cbnosdk.Activity.ShipingongzhenActivity;
 import com.example.cbnosdk.constant.netConstant;
-import com.example.cbnosdk.utiles.SpUtils;
 import com.kongzue.baseokhttp.HttpRequest;
 import com.kongzue.baseokhttp.listener.JsonResponseListener;
 import com.kongzue.baseokhttp.util.JsonMap;
@@ -43,8 +42,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import cn.org.bjca.signet.component.core.activity.SignetCoreApi;
 import cn.org.bjca.signet.component.core.activity.SignetToolApi;
@@ -61,7 +58,7 @@ import cn.org.bjca.signet.component.core.enums.RegisterType;
 //import okhttp3.Request;
 //import okhttp3.Response;
 
-import static com.example.cbnosdk.utiles.DataCleanManager.clear;
+
 
 
 public class BaseApply3Activity extends AppCompatActivity {
@@ -71,18 +68,19 @@ public class BaseApply3Activity extends AppCompatActivity {
     private PdfDocument.PageInfo pageInfo;
     private PdfDocument.Page page;
     protected String msspId, activeCode, signId, fileName, fileSize, filePath, fileHashSha1, statusInfo;
-    protected String caseId, userId;
-    private File uploadFile;
+    protected String caseId, userId,videoPath = null, imagePath = null;
+    protected File uploadFile;
     protected Bundle getBundle;
     protected String caseCode, date, bank,token;
+    //生成PDF里的时间
+    protected TextView sign_date;
 //    public QMUITipDialog tipDialog;
     //加载框
     private ProgressDialog progressDialog;
 
     //拦截器
     public void breaker(Context mContext){
-        clear(mContext);
-        Intent intent=new Intent(mContext, Apply2Activity.class);
+        Intent intent=new Intent(mContext, ShipingongzhenActivity.class);
         //调到页面，关闭之前所有页面
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
@@ -90,6 +88,8 @@ public class BaseApply3Activity extends AppCompatActivity {
 
     //生成pdf 内容+签字
     public void setupPdf(LinearLayout lv_apply3) {
+        date=new SimpleDateFormat("yyyyMM_dd-HHmmss").format(new Date());
+        sign_date.setText(date);
         doc = new PdfDocument();
         pageInfo = new PdfDocument.PageInfo.Builder((int) (lv_apply3.getWidth()*0.35f), (int) (lv_apply3.getHeight()*0.35f), 1)
                 .create();
@@ -112,6 +112,7 @@ public class BaseApply3Activity extends AppCompatActivity {
         try {
             String pdfPath=file.getAbsolutePath() + "/" + new SimpleDateFormat("yyyyMM_dd-HHmmss").format(new Date()) + "ad.pdf";
             //SpUtils.getInstance(getParent()).setString("pdfpath",pdfPath);
+
             uploadFile = new File(pdfPath);
             doc.writeTo(new FileOutputStream(uploadFile));
             //应该弹一个对话框
@@ -225,10 +226,13 @@ public class BaseApply3Activity extends AppCompatActivity {
 
                             }
                         } else if (main.getString("code").equals("401")){
-                            breaker(con);
+                            Toast.makeText(con,main.getString("msg"),Toast.LENGTH_SHORT).show();
+                            finish();
+                            //breaker(con);
                         }else {
 //                            getTipDialog(con,3,main.getString("msg")).show();
 //                            delayCloseTip();
+                            Toast.makeText(con,main.getString("msg"),Toast.LENGTH_SHORT).show();
                             Log.d("获取用户状态", "失败");
 
                         }
@@ -305,11 +309,14 @@ public class BaseApply3Activity extends AppCompatActivity {
                             Log.d("activeCode", activeCode);
                         } else if (main.getString("code").equals("401")){
                             dismissProgressDialog();
-                            breaker(con);
+                            Toast.makeText(con,main.getString("msg"),Toast.LENGTH_SHORT).show();
+                            finish();
+                            //breaker(con);
                         }else {
                             dismissProgressDialog();
 //                            getTipDialog(con,3,main.getString("msg")).show();
 //                            delayCloseTip();
+                            Toast.makeText(con,main.getString("msg"),Toast.LENGTH_SHORT).show();
                             Log.d("添加用户接口调用", "失败");
                         }
                     }
@@ -359,7 +366,8 @@ public class BaseApply3Activity extends AppCompatActivity {
                             dismissProgressDialog();
                             Log.d("上传", "连接失败", error);
 //                            getTipDialog(con,3,"连接失败").show();
-
+                            Toast.makeText(con,"连接失败，请重试",Toast.LENGTH_SHORT).show();
+                            deleteFile(uploadFile);
 
 //                            delayCloseTip();
                         } else {
@@ -374,8 +382,9 @@ public class BaseApply3Activity extends AppCompatActivity {
                                 signPdf(con);
                             }else if (main.getString("code").equals("401")){
                                 dismissProgressDialog();
-
-                                breaker(con);
+                                Toast.makeText(con,main.getString("msg"),Toast.LENGTH_SHORT).show();
+                                finish();
+                                //breaker(con);
                             } else {
                                 Log.e("上传", main.getString("msg"));
                                 Log.e("上传", main.getString("code"));
@@ -404,7 +413,7 @@ public class BaseApply3Activity extends AppCompatActivity {
                     showProgressDialog(con,"请稍后");
                     getSeal(con);
                 }else {
-                    Toast.makeText(con,"有错误，请重新输入",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(con,"密码错误，请重新输入",Toast.LENGTH_SHORT).show();
                     signPdf(con);
 
                 }
@@ -453,11 +462,14 @@ public class BaseApply3Activity extends AppCompatActivity {
 
                                 } else if (main.getString("code").equals("401")){
                                     dismissProgressDialog();
-                                    breaker(con);
+                                    Toast.makeText(con,main.getString("msg"),Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    //breaker(con);
                                 }else {
                                     dismissProgressDialog();
 //                                    getTipDialog(con,3,main.getString("msg")).show();
 //                                    delayCloseTip();
+                                    Toast.makeText(con,main.getString("msg"),Toast.LENGTH_SHORT).show();
                                     Log.e("请求结果", main.getString("msg"));
                                     Log.e("请求结果", main.getString("code"));
 
@@ -508,16 +520,32 @@ public class BaseApply3Activity extends AppCompatActivity {
                                 intent.putExtra("filename", fileName);
                                 intent.putExtra("date", date);
                                 intent.putExtra("bank", bank);
-                                startActivity(intent);*/
+                                startActivity(intent);*/;
+                                imagePath = getBundle.getString("imagepath");
+                                videoPath = getBundle.getString("videopath");
+                                deleteFile(new File(videoPath));
+                                deleteFile(new File(imagePath));
                                 Toast.makeText(con,"全部流程执行成功",Toast.LENGTH_SHORT).show();
+                                deleteFile(uploadFile);
                                 finish();
                                 Log.d("上传告知函", jsonMap.toString());
                             } else if (main.getString("code").equals("401")){
                                 dismissProgressDialog();
-                                breaker(con);
+                                imagePath = getBundle.getString("imagepath");
+                                videoPath = getBundle.getString("videopath");
+                                deleteFile(new File(videoPath));
+                                deleteFile(new File(imagePath));
+
+                                Toast.makeText(con,main.getString("msg"),Toast.LENGTH_SHORT).show();
+                                finish();
+                                //breaker(con);
                             }else {
 //                                getTipDialog(con,3,main.getString("msg")).show();
 //                                delayCloseTip();
+                                imagePath = getBundle.getString("imagepath");
+                                videoPath = getBundle.getString("videopath");
+                                deleteFile(new File(videoPath));
+                                deleteFile(new File(imagePath));
                                 Log.e("上传告知函", main.getString("msg"));
                                 Log.e("上传告知函", main.getString("code"));
                                 dismissProgressDialog();
@@ -528,6 +556,8 @@ public class BaseApply3Activity extends AppCompatActivity {
                 .doPost();
 
     }
+
+
 
 //    public void uploadVideo(Context con,LinearLayout layout){
 //        token= SpUtils.getInstance(this).getString("token",null);
@@ -545,9 +575,9 @@ public class BaseApply3Activity extends AppCompatActivity {
 //                        .addParameter("caseId",caseId)
 //                        .setJsonResponseListener(new JsonResponseListener() {
 //                            @Override
-//                            public void onResponse(JsonMap main, Exception error) {
-//                                if (error!=null){
-//                                    Log.e("上传","连接失败",error);
+//                            public void onResponse(JsonMap main, Exception cbno_error) {
+//                                if (cbno_error!=null){
+//                                    Log.e("上传","连接失败",cbno_error);
 //                                    dismissProgressDialog();
 //                                    Toast.makeText(con,"连接失败,请重试",Toast.LENGTH_SHORT).show();
 //                                }else {

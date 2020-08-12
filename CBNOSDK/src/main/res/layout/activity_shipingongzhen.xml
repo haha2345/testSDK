@@ -57,7 +57,7 @@
     <ImageView
         android:layout_width="80dp"
         android:layout_height="164dp"
-        android:src="@drawable/phone"
+        android:src="@drawable/cbno_phone"
         android:layout_marginTop="40dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -109,7 +109,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="91dp"
             android:layout_marginBottom="100dp"
-            android:background="@drawable/buttonclick"
+            android:background="@drawable/cbno_buttonclick"
             android:text="进入录制"
             android:textColor="#fff"
             android:textSize="14sp" />

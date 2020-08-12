@@ -10,15 +10,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.example.cbnosdk.Activity.Apply2Activity;
 //import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+
+import com.example.cbnosdk.Activity.ShipingongzhenActivity;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import static com.example.cbnosdk.utiles.DataCleanManager.clear;
+
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -115,8 +114,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected static void breaker(Context mContext){
         Toast.makeText(mContext,"token已失效",Toast.LENGTH_SHORT).show();
-        clear(mContext);
-        Intent intent=new Intent(mContext, Apply2Activity.class);
+        Intent intent=new Intent(mContext, ShipingongzhenActivity.class);
         //调到页面，关闭之前所有页面
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);

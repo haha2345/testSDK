@@ -42,7 +42,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/conner_blue"
+                android:background="@drawable/cbno_conner_blue"
                 android:gravity="center">
 
                 <TextView
@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="王小利"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/cbno_blue"
                     android:textSize="14sp" />
 
                 <TextView
@@ -106,7 +106,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/conner_gray"
+                android:background="@drawable/cbno_conner_gray"
                 android:orientation="vertical"
                 android:padding="15dp">
 
@@ -390,7 +390,7 @@
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/yes2"
+                android:src="@drawable/cbno_yes2"
                 android:visibility="invisible" />
 
             <!--                手写签名-->
@@ -399,7 +399,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="15dp"
-                android:background="@drawable/layout_selector"
+                android:background="@drawable/cbno_layout_selector"
                 android:clickable="true"
                 android:padding="10dp"
                 android:visibility="visible">
@@ -407,13 +407,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/apply3_small"
+                    android:background="@drawable/cbno_apply3_small"
                     android:gravity="center">
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/shouxie" />
+                        android:src="@drawable/cbno_shouxie" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -432,7 +432,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="15dp"
-                android:background="@drawable/layout_selector"
+                android:background="@drawable/cbno_layout_selector"
                 android:padding="10dp"
 
                 android:visibility="invisible">
@@ -440,7 +440,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/apply3_small">
+                    android:background="@drawable/cbno_apply3_small">
 
                     <ImageView
                         android:id="@+id/im_apply_auto"
@@ -489,7 +489,7 @@
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/yes2"
+                android:src="@drawable/cbno_yes2"
                 android:visibility="invisible" />
 
 
@@ -498,20 +498,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="15dp"
-                android:background="@drawable/layout_selector"
+                android:background="@drawable/cbno_layout_selector"
                 android:clickable="true"
                 android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/apply3_small"
+                    android:background="@drawable/cbno_apply3_small"
                     android:gravity="center">
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/luxiang" />
+                        android:src="@drawable/cbno_luxiang" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -530,14 +530,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="15dp"
-                android:background="@drawable/layout_selector"
+                android:background="@drawable/cbno_layout_selector"
                 android:padding="10dp"
                 android:visibility="invisible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/apply3_small">
+                    android:background="@drawable/cbno_apply3_small">
 
                     <ImageView
                         android:id="@+id/im_apply_record"
@@ -587,7 +587,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="100dp"
-                android:background="@drawable/buttonclick"
+                android:background="@drawable/cbno_buttonclick"
                 android:enabled="true"
                 android:text="下一步"
                 android:textColor="#fff"

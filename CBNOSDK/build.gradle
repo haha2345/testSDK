@@ -1,8 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.kezong.fat-aar'
-apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.haha2345'
 android {
     compileSdkVersion 29
 
@@ -56,8 +54,9 @@ dependencies {
 //BaseJson 解析库
     embed 'com.kongzue.basejson:basejson:1.0.4'
     embed 'com.github.MasayukiSuda:CameraRecorder-android:v0.1.5'
-    embed 'com.google.code.gson:gson:2.8.5'
-    embed 'com.alibaba:fastjson:1.1.26'
+    //embed 'com.google.code.gson:gson:2.8.5'
+
+    //embed 'com.alibaba:fastjson:1.1.26'
 
 //    implementation ('com.CBNO:framework:1.1@aar'){transitive=true}
 //    implementation ('CBNO:IDSPSDK:1.0@aar'){transitive=true}
@@ -76,5 +75,5 @@ dependencies {
     embed 'sdk:framework:1.0@aar'
     embed 'sdk:idspsdk:1.0@aar'
     embed 'sdk:livecheckcomponent-release:1.0@aar'
-    embed 'sdk:ocrcomponentV1.0.2:1.0@aar'
+//    embed 'sdk:ocrcomponentV1.0.2:1.0@aar'
 }

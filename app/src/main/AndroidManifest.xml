@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Microphone permissions -->
+<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> &lt;!&ndash; Microphone permissions &ndash;&gt;-->
     <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- Require OpenGL ES >= 2.0. -->
 
 
@@ -38,26 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name="cn.org.bjca.signet.component.core.activity.SignetCoreApiActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="cn.org.bjca.livecheckplugin.ui.LiveActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="cn.org.bjca.signet.component.ocr.activity.CaptureIdCardActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="cn.org.bjca.signet.component.qr.activity.QRScanActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="cn.org.bjca.signet.component.seal.activity.SignetSealApiActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name="cn.org.bjca.signet.component.seal.activity.CaptureSignActivity"
-            android:screenOrientation="landscape" />
     </application>
+
 
 </manifest>

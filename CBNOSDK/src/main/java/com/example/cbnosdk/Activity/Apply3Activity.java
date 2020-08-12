@@ -1,9 +1,11 @@
 package com.example.cbnosdk.Activity;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cbnosdk.R;
-import com.example.cbnosdk.utiles.SpUtils;
 import com.example.cbnosdk.base.BaseApply3Activity;
 //import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 //import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
@@ -32,6 +33,7 @@ import cn.org.bjca.signet.component.core.enums.SetSignImgType;
 public class Apply3Activity extends BaseApply3Activity {
 
 //    private QMUITipDialog tipDialog;
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 88888;
 
 
 
@@ -39,6 +41,9 @@ public class Apply3Activity extends BaseApply3Activity {
     TextView tv_apply3_name1;
     TextView tv_apply3_name2;
     TextView tv_apply3_bank;
+    TextView tv_apply3_file_name1;
+    TextView tv_apply3_file_no;
+    TextView tv_apply3_money;
     LinearLayout lv_apply3;
     //初始化下面两个界面
     LinearLayout lv_apply3_auto;
@@ -50,7 +55,7 @@ public class Apply3Activity extends BaseApply3Activity {
     ImageView iv_apply3_yes1;
     //生成pdf的组件
     ImageView sign_image;
-    TextView sign_date;
+
     RelativeLayout re_sign;
 
     LinearLayout lv_apply3_record;
@@ -68,23 +73,23 @@ public class Apply3Activity extends BaseApply3Activity {
     private Intent intent;
     private String name = null,
             bank = null,
-            videoPath = null,
-            imagePath = null,
             phone = null,
             idcard = null;
 
     private String token;
+    private String loanName,loanMoney,loanCode;
 
 /*    private String name = "王文哲",
             bank = "建设银行",
             videoPath = null,
             imagePath = null,
-            phone = "13205401086",
+            cbno_phone = "13205401086",
             idcard = "370284199803310014";*/
 
     private Context mContext = Apply3Activity.this;
     private Bitmap handWritingBitmap = null;
     private String src = null;
+    private String autoDate= null,recordDate= null;
     Bundle putBundle=new Bundle();
 
     @Override
@@ -96,8 +101,9 @@ public class Apply3Activity extends BaseApply3Activity {
         getBundle = getIntent().getExtras();
 
 
-//        initView();
+        initView();
         initBtn();
+
         //第一步，检测是否有证
         if (idcard != null) {
             showProgressDialog(mContext, "请稍后。。。");
@@ -108,7 +114,7 @@ public class Apply3Activity extends BaseApply3Activity {
             finish();
         }
 
-        initView();
+//        initView();
 
         //从别的页面跳转回来不会调用onCreate，只会调用onRestart、onStart、onResume
     }
@@ -117,6 +123,9 @@ public class Apply3Activity extends BaseApply3Activity {
         tv_apply3_name=findViewById(R.id.tv_apply3_name);
         tv_apply3_name1=findViewById(R.id.tv_apply3_name1);
         tv_apply3_name2=findViewById(R.id.tv_apply3_name2);
+        tv_apply3_file_name1=findViewById(R.id.tv_apply3_file_name1);
+        tv_apply3_file_no=findViewById(R.id.tv_apply3_file_no);
+        tv_apply3_money=findViewById(R.id.tv_apply3_money);
         tv_apply3_bank=findViewById(R.id.tv_apply3_bank);
         lv_apply3=findViewById(R.id.lv_apply3);
         lv_apply3_auto=findViewById(R.id.lv_apply3_auto);
@@ -143,8 +152,13 @@ public class Apply3Activity extends BaseApply3Activity {
             bank=getBundle.getString("bank");
             token=getBundle.getString("token");
             idcard=getBundle.getString("idcard");
-            phone=getBundle.getString("phone");
+            phone=getBundle.getString("cbno_phone");
             caseId=getBundle.getString("caseid");
+            loanCode=getBundle.getString("loancode");
+            loanName=getBundle.getString("loanname");
+            loanMoney=getBundle.getString("loanmoney");
+            autoDate=getBundle.getString("autodate");
+            recordDate=getBundle.getString("recorddate");
         }
 
 
@@ -161,12 +175,16 @@ public class Apply3Activity extends BaseApply3Activity {
 //        name = getIntent().getStringExtra("name");
 //        bank = SpUtils.getInstance(this).getString("bank", null);
 //        idcard = getIntent().getStringExtra("idcard");
-//        phone = getIntent().getStringExtra("phone");
+//        cbno_phone = getIntent().getStringExtra("cbno_phone");
 
         tv_apply3_name.setText(name);
         tv_apply3_name1.setText(name);
         tv_apply3_name2.setText(name);
         tv_apply3_bank.setText(bank);
+        tv_apply3_file_name1.setText(loanName);
+        tv_apply3_file_no.setText(loanCode);
+        tv_apply3_money.setText(loanMoney);
+
 
         if (imagePath != null) {
             getRecord();
@@ -181,7 +199,7 @@ public class Apply3Activity extends BaseApply3Activity {
 //    @SuppressLint("ResourceAsColor")
 //    private void initTopBar() {
 //        mTopBar.setBackgroundAlpha(255);
-//        mTopBar.addLeftImageButton(R.drawable.back, R.id.topbar_right_change_button)
+//        mTopBar.addLeftImageButton(R.drawable.cbno_back, R.id.topbar_right_change_button)
 //                .setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View view) {
@@ -196,6 +214,7 @@ public class Apply3Activity extends BaseApply3Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        checkPermission();
         //若二者都有即可进行下一步
         if (imagePath != null && src != null) {
             sbtn_apply3_next.setEnabled(true);
@@ -233,6 +252,7 @@ public class Apply3Activity extends BaseApply3Activity {
         lv_apply3_auto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                autoDate=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(new Date(System.currentTimeMillis()));
                 handWriting(mContext);
             }
         });
@@ -240,6 +260,7 @@ public class Apply3Activity extends BaseApply3Activity {
         lv_apply3_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                recordDate=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(new Date(System.currentTimeMillis()));
                 jumpToRecord();
             }
         });
@@ -247,6 +268,7 @@ public class Apply3Activity extends BaseApply3Activity {
         tv_apply3_reauto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                autoDate=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(new Date(System.currentTimeMillis()));
                 reAuto();
             }
         });
@@ -258,6 +280,7 @@ public class Apply3Activity extends BaseApply3Activity {
                 videoPath = getBundle.getString("videopath");
                 deleteFile(new File(videoPath));
                 deleteFile(new File(imagePath));
+                recordDate=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss").format(new Date(System.currentTimeMillis()));
                 reRecord();
             }
         });
@@ -265,7 +288,8 @@ public class Apply3Activity extends BaseApply3Activity {
         im_apply_record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(mContext, VideoActivity.class);
+                intent = new Intent(mContext, CBNOVideoActivity.class);
+                intent.putExtra("path",videoPath);
                 startActivity(intent);
             }
         });
@@ -275,14 +299,10 @@ public class Apply3Activity extends BaseApply3Activity {
     //如果正常录像调用此方法
     private void getRecord() {
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
-//获取当前时间
-        Date date = new Date(System.currentTimeMillis());
-
         iv_apply3_yes1.setVisibility(View.VISIBLE);
         rv_apply3_record.setVisibility(View.VISIBLE);
         lv_apply3_record.setVisibility(View.INVISIBLE);
-        tv_apply3_record_date.setText(simpleDateFormat.format(date));
+        tv_apply3_record_date.setText(recordDate);
         im_apply_record.setImageURI(getImageContentUri(mContext, new File(imagePath)));
     }
 
@@ -298,10 +318,16 @@ public class Apply3Activity extends BaseApply3Activity {
         intent = new Intent(mContext, ShipingongzhenActivity.class);
         putBundle.putString("base64str",src);
         putBundle.putString("name",name);
-        putBundle.putString("phone",phone);
+        putBundle.putString("bank",bank);
+        putBundle.putString("cbno_phone",phone);
         putBundle.putString("idcard",idcard);
         putBundle.putString("token",token);
         putBundle.putString("caseid",caseId);
+        putBundle.putString("loancode", loanCode);
+        putBundle.putString("loanname", loanName);
+        putBundle.putString("loanmoney", loanMoney);
+        putBundle.putString("autodate", autoDate);
+        putBundle.putString("recorddate", recordDate);
         intent.putExtras(putBundle);
         startActivity(intent);
     }
@@ -314,7 +340,7 @@ public class Apply3Activity extends BaseApply3Activity {
                     @Override
                     public void onSetSignImageResult(SignImageResult setSignImageResult) {
                         src = setSignImageResult.getSignImageSrc();
-//                        Log.d("shouxie", src);
+//                        Log.d("cbno_shouxie", src);
 //                        Log.d("手写", setSignImageResult.getErrMsg());
 //                        Log.d("手写", setSignImageResult.getErrCode());
                         handWritingBitmap = base64ToBitmap(src);
@@ -327,10 +353,9 @@ public class Apply3Activity extends BaseApply3Activity {
     }
 
     private void getAuto() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
-//获取当前时间
-        Date date = new Date(System.currentTimeMillis());
-        tv_apply3_auto_date.setText(simpleDateFormat.format(date));
+
+
+        tv_apply3_auto_date.setText(autoDate);
         iv_apply3_yes.setVisibility(View.VISIBLE);
         rv_apply3_auto.setVisibility(View.VISIBLE);
         lv_apply3_auto.setVisibility(View.INVISIBLE);
@@ -338,7 +363,8 @@ public class Apply3Activity extends BaseApply3Activity {
         //设置签名
 //        sign_image.setImageBitmap(handWritingBitmap);
         //暂时这么写
-        sign_date.setText(simpleDateFormat.format(date));
+        //生成pdf的时间
+        //sign_date.setText(date);
     }
 
     private void reAuto() {
@@ -348,7 +374,8 @@ public class Apply3Activity extends BaseApply3Activity {
         handWriting(mContext);
     }
 
-//    public QMUITipDialog getTipDialog(int type, String str) {
+
+    //    public QMUITipDialog getTipDialog(int type, String str) {
 //        tipDialog = new QMUITipDialog.Builder(mContext)
 //                .setIconType(type)
 //                .setTipWord(str)
@@ -382,4 +409,35 @@ public class Apply3Activity extends BaseApply3Activity {
 ////            }
 ////        },1500);
 //    }
+    //获取摄像头权限
+    private boolean checkPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+
+        // request camera permission if it has not been grunted.
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
+                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_REQUEST_CODE);
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case CAMERA_PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //Toast.makeText(MainActivity.this, "camera permission has been grunted.", Toast.LENGTH_SHORT).show();
+                } else {
+                    //Toast.makeText(MainActivity.this, "[WARN] camera permission is not grunted.", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
 }
